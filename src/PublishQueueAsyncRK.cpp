@@ -107,7 +107,10 @@ void PublishQueueAsyncBase::checkQueueState() {
 			lastPublish = millis();
 		}
 		else {
-			// No event
+			pubqLogger.info("DISCARD!");
+			// There must be some number of events in the queue, even though lookup failed
+			if (this->getNumEvents() > 5) 
+				discardOldEvent(false);
 		}
 	}
 	else {
